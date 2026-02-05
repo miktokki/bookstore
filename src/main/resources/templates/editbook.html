@@ -9,9 +9,10 @@
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 
 <body>
-    <h1>Add book</h1>
+    <h1>Edit book</h1>
 
     <form th:object="${book}" th:action="@{/save}" method="post">
+        <input type="hidden" th:field="*{id}" />
         <div>
             <label>Title</label>
             <input type="text" th:field="*{title}" />
@@ -46,8 +47,7 @@
 
         <div style="clear: both; display: block; height: 10px;"></div>
 
-
-        <button class="btn btn-success" type="submit">Save</button>
+        <button class="btn btn-success" type="submit">Update</button>
 
     </form>
 
