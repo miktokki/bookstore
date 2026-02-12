@@ -1,6 +1,5 @@
 package bookstore.bookstore.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,18 +14,13 @@ import bookstore.bookstore.model.CategoryRepository;
 @Controller
 public class BookController {
 
-    @Autowired
-    private BookRepository repository;
+    private final BookRepository repository;
+    private final CategoryRepository crepository;
 
-    @Autowired
-    private CategoryRepository crepository;
-
-    /*
-     * // constructor injection - works only if only one constructor
-     * public BookController(BookRepository repository) {
-     * this.repository = repository;
-     * }
-     */
+    public BookController(BookRepository repository, CategoryRepository crepository) {
+        this.repository = repository;
+        this.crepository = crepository;
+    }
 
     @GetMapping(value = { "/", "/books" })
     public String getBooks(Model model) {
@@ -50,14 +44,14 @@ public class BookController {
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String deleteBook(@PathVariable("id") Long id) {
+    public String deleteBook(@PathVariable Long id) {
         repository.deleteById(id);
         return "redirect:/books";
 
     }
 
     @GetMapping(value = "/edit/{id}")
-    public String editBook(@PathVariable("id") Long id, Model model) {
+    public String editBook(@PathVariable Long id, Model model) {
         model.addAttribute("book", repository.findById(id).orElseThrow());
         model.addAttribute("categories", crepository.findAll());
         return "editbook";
