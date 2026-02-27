@@ -8,6 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Book {
@@ -15,10 +18,22 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Title ei saa olla tyhjä")
+    @Size(min = 3, max = 100, message = "Titlen pituus 3-100 merkkiä")
     private String title;
+
+    @NotBlank(message = "Author ei saa olla tyhjä")
+    @Size(min = 3, max = 100, message = "Authorin pituus 3-100 merkkiä")
     private String author;
+
+    @NotNull(message = "Julkaisuvuosi on pakollinen")
     private int publicationYear;
+
+    @NotBlank(message = "ISBN ei saa olla tyhjä")
+    @Size(min = 3, max = 20, message = "Pituus 3-20 merkkiä")
     private String isbn;
+
+    @NotNull(message = "Hinta on pakollinen")
     private int price;
 
     @JsonIgnoreProperties("books")

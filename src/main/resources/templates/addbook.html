@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Booklist</title>
+    <title>Add book</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <!-- Bootstrap-->
@@ -12,6 +12,11 @@
     <h1>Add book</h1>
 
     <form th:object="${book}" th:action="@{/save}" method="post">
+        <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+        </div>
         <div>
             <label>Title</label>
             <input type="text" th:field="*{title}" />
