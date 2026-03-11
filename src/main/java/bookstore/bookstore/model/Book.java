@@ -2,6 +2,7 @@ package bookstore.bookstore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +16,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Title ei saa olla tyhjä")
@@ -27,6 +28,7 @@ public class Book {
     private String author;
 
     @NotNull(message = "Julkaisuvuosi on pakollinen")
+    @Column(name = "publication_year")
     private int publicationYear;
 
     @NotBlank(message = "ISBN ei saa olla tyhjä")
